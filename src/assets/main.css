@@ -3,6 +3,30 @@
 @tailwind components;
 @tailwind utilities;
 
+:root[data-theme="light"] {
+  --body: white;
+  --border: rgba(60, 60, 60, 0.12);
+  --info: #929CA7;
+  --main: white;
+  --primary: theme('colors.emerald.500');
+  --primaryhover: theme('colors.emerald.600');
+  --secondary: theme('colors.emerald.200');
+  --secondaryhover: theme('colors.emerald.300');
+  --text: #35495E;
+}
+
+:root[data-theme="dark"] {
+  --body: #1F2D3C;
+  --border: rgba(84, 84, 84, 0.48);
+  --info: #999999;
+  --main: #35495E;
+  --primary: theme('colors.emerald.500');
+  --primaryhover: theme('colors.emerald.600');
+  --secondary: theme('colors.emerald.200');
+  --secondaryhover: theme('colors.emerald.300');
+  --text: white;
+}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
@@ -28,11 +52,5 @@ a,
   body {
     display: flex;
     place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
   }
 }
