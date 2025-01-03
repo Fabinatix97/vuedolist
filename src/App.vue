@@ -24,8 +24,8 @@ watch(theme, applyTheme);
 
 <template>
   <div>
-    <RouterView class="border-2 border-green-500" />
-    <nav class="border-2 border-primary">
+    <RouterView class="border-2 border-red-500" />
+    <nav class="flex gap-4 border-2 border-primary">
       <RouterLink to="/"><Icon icon="material-symbols:home" style="font-size: 2.5em;" /></RouterLink>
       <RouterLink to="/about"><Icon icon="material-symbols:menu-rounded" style="font-size: 2.5em;" /></RouterLink>
       <RouterLink to="/settings"><Icon icon="material-symbols:settings-rounded" style="font-size: 2.5em;" /></RouterLink>
@@ -45,21 +45,19 @@ nav {
 }
 
 nav a.router-link-exact-active {
-  color: var(--text);
+  color: var(--primary);
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+nav a:hover {
+  background-color: var(--primaryhover);
 }
 
 nav a {
   display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: var(--text);
+  background-color: var(--main);
 }
 
 @media (min-width: 1024px) {
