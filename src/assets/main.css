@@ -2,49 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-:root[data-theme="light"] {
+:root[data-theme='light'] {
   --body: white;
   --border: rgba(60, 60, 60, 0.12);
-  --info: #929CA7;
-  --main: #F1F1F1;
+  --info: #929ca7;
+  --main: #f1f1f1;
   --primary: theme('colors.emerald.700');
   --primaryhover: theme('colors.emerald.200');
   --secondary: theme('colors.emerald.200');
   --secondaryhover: theme('colors.emerald.300');
-  --text: #35495E;
+  --text: #35495e;
 }
 
-:root[data-theme="dark"] {
-  --body: #1F2D3C;
+:root[data-theme='dark'] {
+  --body: #1f2d3c;
   --border: rgba(84, 84, 84, 0.48);
   --info: #999999;
-  --main: #35495E;
+  --main: #35495e;
   --primary: theme('colors.emerald.500');
   --primaryhover: theme('colors.emerald.900');
-  --secondary: #2F725E;
+  --secondary: #2f725e;
   --secondaryhover: theme('colors.emerald.300');
   --text: white;
 }
 
 @layer base {
-  h1, h2, h3, h4, h5, h6 {
-      @apply font-bold mt-8 mb-4;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply mb-4 mt-8 font-bold;
   }
   h1 {
-      @apply text-5xl;
+    @apply text-5xl;
   }
   h2 {
-      @apply text-4xl;
+    @apply text-4xl;
   }
   h3 {
-      @apply text-3xl;
-      color: var(--primary);
+    @apply text-3xl;
+    color: var(--primary);
   }
   h4 {
-      @apply text-2xl;
+    @apply text-2xl;
   }
   p {
-      @apply text-lg;
+    @apply text-lg;
   }
 }
 

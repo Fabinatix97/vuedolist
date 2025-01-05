@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Icon } from "@iconify/vue";
-import ToggleSwitch from '@/components/ToggleSwitch.vue';
+import { Icon } from '@iconify/vue'
+import ToggleSwitch from '@/components/ToggleSwitch.vue'
 </script>
 
 <template>
@@ -9,12 +9,10 @@ import ToggleSwitch from '@/components/ToggleSwitch.vue';
     <h3>Allgemeines</h3>
     <div class="flex justify-between">
       <p>Dark-Mode</p>
-      <Icon icon="material-symbols:switches" style="font-size: 2em;" />
+      <Icon icon="material-symbols:switches" style="font-size: 2em" />
       <ToggleSwitch />
     </div>
   </main>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
