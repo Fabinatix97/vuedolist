@@ -3,9 +3,9 @@ import { Icon } from '@iconify/vue'
 import { ref } from 'vue'
 
 const tasks = ref([
-  { name: 'Aufgabe 1', done: true },
-  { name: 'Aufgabe 2', done: false },
-  { name: 'Aufgabe 3', done: false },
+  { id: 40006, name: 'Aufgabe 1', done: true },
+  { id: 10909, name: 'Aufgabe 2', done: false },
+  { id: 61200, name: 'Aufgabe 3', done: false },
 ])
 
 const shown = ref(false)
@@ -16,10 +16,23 @@ function changeStatus(taskToChange: { name: string; done: boolean }) {
   taskToChange.done = !taskToChange.done
 }
 
+function getRandomArbitrary(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min) + min)
+}
+
 function addNewTask() {
-  tasks.value.push({ name: newTask.value, done: false })
+  tasks.value.push({ id: getRandomArbitrary(10000, 99999), name: newTask.value, done: false })
   newTask.value = ''
   shown.value = false
+}
+
+function deleteTask(taskId: number) {
+  const index = tasks.value.findIndex((task) => task.id === taskId)
+  if (index || index === 0) {
+    tasks.value.splice(index, 1)
+  } else {
+    console.log('Index not found')
+  }
 }
 </script>
 
@@ -40,19 +53,25 @@ function addNewTask() {
             icon="material-symbols:check-circle-rounded"
             style="font-size: 2em"
             @click="changeStatus(task)"
+            class="cursor-pointer text-info"
           />
           <Icon
             v-else
             icon="material-symbols:circle-outline"
             style="font-size: 2em"
             @click="changeStatus(task)"
+            class="cursor-pointer"
           />
-          <p :class="[task.done ? 'line-through' : '', 'font-semibold']">{{ task.name }}</p>
+          <p :class="[task.done ? 'text-info line-through' : '', 'font-semibold']">
+            {{ task.name }}
+          </p>
         </div>
         <Icon
           v-show="hoveredTask === task.name"
           icon="material-symbols:delete-forever-rounded"
           style="font-size: 2em"
+          class="cursor-pointer text-info hover:text-text"
+          @click="deleteTask(task.id)"
         />
       </div>
       <div v-if="shown" class="flex gap-4 rounded-xl bg-primaryhover p-4 text-primary duration-300">
@@ -60,9 +79,14 @@ function addNewTask() {
         <input
           v-model="newTask"
           placeholder="Aufgabe eingeben"
-          class="bg-transparent font-semibold outline-none"
+          class="cursor-pointer bg-transparent font-semibold outline-none"
         />
-        <Icon icon="tdesign:enter" @click="addNewTask()" style="font-size: 2em" />
+        <Icon
+          icon="tdesign:enter"
+          @click="addNewTask()"
+          style="font-size: 2em"
+          class="cursor-pointer"
+        />
       </div>
       <div class="flex justify-end">
         <div
