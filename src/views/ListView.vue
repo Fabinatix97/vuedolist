@@ -1,39 +1,24 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
+import { taskStore } from '../stores/tasks'
 
-const tasks = ref([
-  { id: 40006, name: 'Aufgabe 1', done: true },
-  { id: 10909, name: 'Aufgabe 2', done: false },
-  { id: 61200, name: 'Aufgabe 3', done: false },
-])
-
-const shown = ref(false)
-const newTask = ref('')
+const store = taskStore()
+const tasks = ref(store.tasks)
 const hoveredTask = ref<string | null>(null)
 
-function changeStatus(taskToChange: { name: string; done: boolean }) {
-  taskToChange.done = !taskToChange.done
-}
+const newTask = ref<HTMLInputElement | null>(null);
 
-function getRandomArbitrary(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min) + min)
-}
-
-function addNewTask() {
-  tasks.value.push({ id: getRandomArbitrary(10000, 99999), name: newTask.value, done: false })
-  newTask.value = ''
-  shown.value = false
-}
-
-function deleteTask(taskId: number) {
-  const index = tasks.value.findIndex((task) => task.id === taskId)
-  if (index || index === 0) {
-    tasks.value.splice(index, 1)
-  } else {
-    console.log('Index not found')
+const handleAdd = () => {
+  store.shown = !store.shown;
+  if (store.shown) {
+    nextTick(() => {
+      if (newTask.value) {
+        newTask.value.focus();
+      }
+    });
   }
-}
+};
 </script>
 
 <template>
@@ -52,14 +37,14 @@ function deleteTask(taskId: number) {
             v-if="task.done"
             icon="material-symbols:check-circle-rounded"
             style="font-size: 2em"
-            @click="changeStatus(task)"
+            @click="store.changeStatus(task)"
             class="cursor-pointer text-info"
           />
           <Icon
             v-else
             icon="material-symbols:circle-outline"
             style="font-size: 2em"
-            @click="changeStatus(task)"
+            @click="store.changeStatus(task)"
             class="cursor-pointer"
           />
           <p :class="[task.done ? 'text-info line-through' : '', 'font-semibold']">
@@ -71,19 +56,21 @@ function deleteTask(taskId: number) {
           icon="material-symbols:delete-forever-rounded"
           style="font-size: 2em"
           class="cursor-pointer text-info hover:text-text"
-          @click="deleteTask(task.id)"
+          @click="store.deleteTask(task.id)"
         />
       </div>
-      <div v-if="shown" class="flex gap-4 rounded-xl bg-primaryhover p-4 text-primary duration-300">
+      <div v-if="store.shown" class="flex gap-4 rounded-xl bg-primaryhover p-4 text-primary duration-300">
         <Icon icon="material-symbols:circle-outline" style="font-size: 2em" />
         <input
-          v-model="newTask"
+          v-model="store.newTask"
           placeholder="Aufgabe eingeben"
-          class="cursor-pointer bg-transparent font-semibold outline-none"
+          class="cursor-pointer bg-transparent font-semibold outline-none text-lg placeholder:text-primary"
+          v-on:keyup.enter="store.addNewTask()"
+          ref="newTask"
         />
         <Icon
           icon="tdesign:enter"
-          @click="addNewTask()"
+          @click="store.addNewTask()"
           style="font-size: 2em"
           class="cursor-pointer"
         />
@@ -91,7 +78,7 @@ function deleteTask(taskId: number) {
       <div class="flex justify-end">
         <div
           class="flex gap-4 rounded-xl bg-primary p-4 text-white duration-300 hover:bg-primaryhover hover:text-text"
-          @click="shown = !shown"
+          @click="handleAdd()"
         >
           <Icon icon="material-symbols:add-2-rounded" style="font-size: 2em" />
         </div>
@@ -100,4 +87,5 @@ function deleteTask(taskId: number) {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
