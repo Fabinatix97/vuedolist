@@ -8,7 +8,7 @@ const theme = ref(localStorage.getItem('theme') || (window.matchMedia('(prefers-
 const themeIconName = computed(() => { return theme.value === 'light' ? 'material-symbols:nightlight' : 'material-symbols:sunny'; });
 
 function applyTheme() {
-  console.log(`Applying theme: ${theme.value}`);
+  //console.log(`Applying theme: ${theme.value}`);
   document.documentElement.setAttribute('data-theme', theme.value);
 }
 
@@ -25,7 +25,7 @@ watch(theme, applyTheme);
 <template>
   <div>
     <RouterView class="border-2 border-red-500" />
-    <nav class="flex gap-4 border-2 border-primary">
+    <nav class="flex gap-4 justify-center border-2 border-primary">
       <RouterLink to="/"><Icon icon="material-symbols:home" style="font-size: 2.5em;" /></RouterLink>
       <RouterLink to="/about"><Icon icon="material-symbols:menu-rounded" style="font-size: 2.5em;" /></RouterLink>
       <RouterLink to="/settings"><Icon icon="material-symbols:settings-rounded" style="font-size: 2.5em;" /></RouterLink>
