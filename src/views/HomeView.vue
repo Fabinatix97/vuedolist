@@ -1,35 +1,24 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
+import { listStore } from '../stores/lists'
 
-const lists = ref([
-  { id: 40006, name: 'ToDo Liste 1' },
-  { id: 10909, name: 'ToDo Liste 2' },
-  { id: 61200, name: 'Einkaufsliste' },
-])
-
-const shown = ref(false)
-const newList = ref('')
+const store = listStore()
+const lists = ref(store.lists)
 const hoveredList = ref<string | null>(null)
 
-function getRandomArbitrary(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min) + min)
-}
+const newList = ref<HTMLInputElement | null>(null);
 
-function addNewList() {
-  lists.value.push({ id: getRandomArbitrary(10000, 99999), name: newList.value })
-  newList.value = ''
-  shown.value = false
-}
-
-function deleteList(listId: number) {
-  const index = lists.value.findIndex((list) => list.id === listId)
-  if (index || index === 0) {
-    lists.value.splice(index, 1)
-  } else {
-    console.log('Index not found')
+const handleAdd = () => {
+  store.shown = !store.shown;
+  if (store.shown) {
+    nextTick(() => {
+      if (newList.value) {
+        newList.value.focus();
+      }
+    });
   }
-}
+};
 </script>
 
 <template>
@@ -54,19 +43,21 @@ function deleteList(listId: number) {
           icon="material-symbols:delete-forever-rounded"
           style="font-size: 2em"
           class="cursor-pointer text-info hover:text-text"
-          @click="deleteList(list.id)"
+          @click="store.deleteList(list.id)"
         />
       </div>
-      <div v-if="shown" class="flex gap-4 rounded-xl bg-primaryhover p-4 text-primary duration-300">
+      <div v-if="store.shown" class="flex gap-4 rounded-xl bg-primaryhover p-4 text-primary duration-300">
         <Icon icon="material-symbols:circle-outline" style="font-size: 2em" />
         <input
-          v-model="newList"
+          v-model="store.newList"
           placeholder="Liste benennen"
-          class="cursor-pointer bg-transparent font-semibold outline-none"
+          class="cursor-pointer bg-transparent font-semibold outline-none text-lg placeholder:text-primary"
+          v-on:keyup.enter="store.addNewList()"
+          ref="newList"
         />
         <Icon
           icon="tdesign:enter"
-          @click="addNewList()"
+          @click="store.addNewList()"
           style="font-size: 2em"
           class="cursor-pointer"
         />
@@ -74,7 +65,7 @@ function deleteList(listId: number) {
       <div class="flex justify-end">
         <div
           class="flex gap-4 rounded-xl bg-primary p-4 text-white duration-300 hover:bg-primaryhover hover:text-text"
-          @click="shown = !shown"
+          @click="handleAdd()"
         >
           <Icon icon="material-symbols:add-2-rounded" style="font-size: 2em" />
         </div>
