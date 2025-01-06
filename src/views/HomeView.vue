@@ -2,23 +2,24 @@
 import { Icon } from '@iconify/vue'
 import { ref, nextTick } from 'vue'
 import { listStore } from '../stores/lists'
+import { RouterLink } from 'vue-router'
 
 const store = listStore()
 const lists = ref(store.lists)
 const hoveredList = ref<string | null>(null)
 
-const newList = ref<HTMLInputElement | null>(null);
+const newList = ref<HTMLInputElement | null>(null)
 
 const handleAdd = () => {
-  store.shown = !store.shown;
+  store.shown = !store.shown
   if (store.shown) {
     nextTick(() => {
       if (newList.value) {
-        newList.value.focus();
+        newList.value.focus()
       }
-    });
+    })
   }
-};
+}
 </script>
 
 <template>
@@ -27,31 +28,36 @@ const handleAdd = () => {
     <div class="flex flex-col gap-4">
       <div
         v-for="list in lists"
-        :key="list.name"
+        :key="list.id"
         class="flex rounded-xl bg-main p-4 duration-300 hover:bg-primaryhover"
         @mouseover="hoveredList = list.name"
         @mouseleave="hoveredList = null"
       >
-        <div class="flex grow gap-4">
-          <Icon icon="material-symbols:checklist-rounded" style="font-size: 2em" />
-          <p class="font-semibold">
-            {{ list.name }}
-          </p>
-        </div>
-        <Icon
-          v-show="hoveredList === list.name"
-          icon="material-symbols:delete-forever-rounded"
-          style="font-size: 2em"
-          class="cursor-pointer text-info hover:text-text"
-          @click="store.deleteList(list.id)"
-        />
+        <RouterLink :to="{ name: 'list', params: { id: list.id } }" class="flex w-full">
+          <div class="flex grow gap-4">
+            <Icon icon="material-symbols:checklist-rounded" style="font-size: 2em" />
+            <p class="font-semibold">
+              {{ list.name }}
+            </p>
+          </div>
+          <Icon
+            v-show="hoveredList === list.name"
+            icon="material-symbols:delete-forever-rounded"
+            style="font-size: 2em"
+            class="flex-none cursor-pointer text-info hover:text-text"
+            @click="store.deleteList(list.id)"
+          />
+        </RouterLink>
       </div>
-      <div v-if="store.shown" class="flex gap-4 rounded-xl bg-primaryhover p-4 text-primary duration-300">
+      <div
+        v-if="store.shown"
+        class="flex gap-4 rounded-xl bg-primaryhover p-4 text-primary duration-300"
+      >
         <Icon icon="material-symbols:circle-outline" style="font-size: 2em" />
         <input
           v-model="store.newList"
           placeholder="Liste benennen"
-          class="cursor-pointer bg-transparent font-semibold outline-none text-lg placeholder:text-primary"
+          class="cursor-pointer bg-transparent text-lg font-semibold outline-none placeholder:text-primary"
           v-on:keyup.enter="store.addNewList()"
           ref="newList"
         />

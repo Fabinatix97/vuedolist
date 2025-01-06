@@ -1,34 +1,39 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { ref, nextTick } from 'vue'
-import { taskStore } from '../stores/tasks'
+import { computed, ref, nextTick } from 'vue'
+import { useRoute } from 'vue-router'
+import { listStore } from '../stores/lists'
 
-const store = taskStore()
-const tasks = ref(store.tasks)
+const store = listStore()
+const route = useRoute()
+const listId = parseInt(route.params.id as string)
+const list = computed(() => store.lists.find((l) => l.id === listId))
+const listName = list.value?.name
+console.log(list)
+const tasks = computed(() => list.value?.tasks || [])
 const hoveredTask = ref<string | null>(null)
-
-const newTask = ref<HTMLInputElement | null>(null);
+const newTask = ref<HTMLInputElement | null>(null)
 
 const handleAdd = () => {
-  store.shown = !store.shown;
+  store.shown = !store.shown
   if (store.shown) {
     nextTick(() => {
       if (newTask.value) {
-        newTask.value.focus();
+        newTask.value.focus()
       }
-    });
+    })
   }
-};
+}
 </script>
 
 <template>
   <div class="about">
-    <h1>ToDo Liste 1</h1>
+    <h1>{{ listName }}</h1>
     <div class="flex flex-col gap-4">
       <div
         v-for="task in tasks"
-        :key="task.name"
-        class="flex rounded-xl bg-main p-4 duration-300 hover:bg-primaryhover"
+        :key="task.id"
+        class="flex w-full rounded-xl bg-main p-4 duration-300 hover:bg-primaryhover"
         @mouseover="hoveredTask = task.name"
         @mouseleave="hoveredTask = null"
       >
@@ -56,21 +61,23 @@ const handleAdd = () => {
           icon="material-symbols:delete-forever-rounded"
           style="font-size: 2em"
           class="cursor-pointer text-info hover:text-text"
-          @click="store.deleteTask(task.id)"
+          @click="store.deleteTask(listId, task.id)"
         />
       </div>
-      <div v-if="store.shown" class="flex gap-4 rounded-xl bg-primaryhover p-4 text-primary duration-300">
+      <div
+        v-if="store.shown"
+        class="flex gap-4 rounded-xl bg-primaryhover p-4 text-primary duration-300"
+      >
         <Icon icon="material-symbols:circle-outline" style="font-size: 2em" />
         <input
-          v-model="store.newTask"
           placeholder="Aufgabe eingeben"
-          class="cursor-pointer bg-transparent font-semibold outline-none text-lg placeholder:text-primary"
-          v-on:keyup.enter="store.addNewTask()"
+          class="cursor-pointer bg-transparent text-lg font-semibold outline-none placeholder:text-primary"
+          v-on:keyup.enter="store.addNewTask(listId)"
           ref="newTask"
         />
         <Icon
           icon="tdesign:enter"
-          @click="store.addNewTask()"
+          @click="store.addNewTask(listId)"
           style="font-size: 2em"
           class="cursor-pointer"
         />
@@ -87,5 +94,4 @@ const handleAdd = () => {
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
