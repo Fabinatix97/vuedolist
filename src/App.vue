@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import { Icon } from '@iconify/vue'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const theme = ref(
   localStorage.getItem('theme') ||
@@ -12,7 +12,13 @@ function applyTheme() {
   document.documentElement.setAttribute('data-theme', theme.value)
 }
 
+function toggleTheme() {
+  theme.value = theme.value === 'light' ? 'dark' : 'light'
+  localStorage.setItem('theme', theme.value)
+}
+
 applyTheme()
+watch(theme, applyTheme)
 </script>
 
 <template>
@@ -32,6 +38,20 @@ applyTheme()
         class="rounded-2xl bg-main p-4 text-text hover:bg-primaryhover"
         ><Icon icon="material-symbols:settings-rounded" style="font-size: 2.5em"
       /></RouterLink>
+      <div class="rounded-2xl bg-main p-4 text-text hover:bg-primaryhover">
+        <Icon
+          v-if="theme === 'light'"
+          icon="material-symbols:clear-night"
+          @click="toggleTheme"
+          style="font-size: 2.5em"
+        />
+        <Icon
+          v-else
+          icon="material-symbols:sunny-rounded"
+          @click="toggleTheme"
+          style="font-size: 2.5em"
+        />
+      </div>
     </nav>
   </div>
 </template>

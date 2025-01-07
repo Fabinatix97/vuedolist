@@ -30,30 +30,28 @@ const handleAdd = () => {
         v-for="list in lists"
         :key="list.id"
         class="flex rounded-xl bg-main p-4 duration-300 hover:bg-primaryhover"
-        @mouseover="hoveredList = list.name"
+        @mouseover="hoveredList = list.id"
         @mouseleave="hoveredList = null"
       >
-        <RouterLink :to="{ name: 'list', params: { id: list.id } }" class="flex w-full">
-          <div class="flex grow gap-4">
-            <Icon icon="material-symbols:checklist-rounded" style="font-size: 2em" />
-            <p class="font-semibold">
-              {{ list.name }}
-            </p>
-          </div>
-          <Icon
-            v-show="hoveredList === list.name"
-            icon="material-symbols:delete-forever-rounded"
-            style="font-size: 2em"
-            class="flex-none cursor-pointer text-info hover:text-text"
-            @click="store.deleteList(list.id)"
-          />
+        <RouterLink :to="{ name: 'list', params: { id: list.id } }" class="flex w-full grow gap-4">
+          <Icon icon="material-symbols:checklist-rounded" style="font-size: 2em" />
+          <p class="font-semibold">
+            {{ list.name }}
+          </p>
         </RouterLink>
+        <Icon
+          v-show="hoveredList === list.id"
+          icon="material-symbols:delete-forever-rounded"
+          style="font-size: 2em"
+          class="flex-none cursor-pointer text-info hover:text-text"
+          @click="store.deleteList(list.id)"
+        />
       </div>
       <div
         v-if="store.shown"
         class="flex gap-4 rounded-xl bg-primaryhover p-4 text-primary duration-300"
       >
-        <Icon icon="material-symbols:circle-outline" style="font-size: 2em" />
+        <Icon icon="material-symbols:checklist-rounded" style="font-size: 2em" />
         <input
           v-model="store.newList"
           placeholder="Liste benennen"

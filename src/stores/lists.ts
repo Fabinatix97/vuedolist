@@ -31,7 +31,6 @@ export const listStore = defineStore('list', () => {
 
   const shown = ref(false)
   const newList = ref('')
-  const newTask = ref('')
 
   function getRandomArbitrary(min: number, max: number) {
     return Math.floor(Math.random() * (max - min) + min)
@@ -54,14 +53,14 @@ export const listStore = defineStore('list', () => {
     }
   }
 
-  function addNewTask(listId: number) {
+  function addNewTask(listId: number, taskName: string) {
+    console.log('Adding task:', taskName)
     const tasks = lists.value.find((list) => list.id === listId)?.tasks
     if (tasks) {
-      tasks.push({ id: getRandomArbitrary(10000, 99999), name: newTask.value, done: false })
+      tasks.push({ id: getRandomArbitrary(10000, 99999), name: taskName, done: false })
     } else {
       console.log('Tasks not found for listId:', listId)
     }
-    newTask.value = ''
     shown.value = false
   }
 

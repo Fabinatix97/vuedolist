@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { computed, ref, nextTick } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { listStore } from '../stores/lists'
 
 const store = listStore()
+const router = useRouter()
 const route = useRoute()
 const listId = parseInt(route.params.id as string)
 const list = computed(() => store.lists.find((l) => l.id === listId))
 const listName = list.value?.name
-console.log(list)
 const tasks = computed(() => list.value?.tasks || [])
 const hoveredTask = ref<string | null>(null)
+
 const newTask = ref<HTMLInputElement | null>(null)
+const newTaskInput = ref('') // Lokale Eingabe
 
 const handleAdd = () => {
   store.shown = !store.shown
@@ -24,17 +26,37 @@ const handleAdd = () => {
     })
   }
 }
+
+const addTask = () => {
+  store.addNewTask(listId, newTaskInput.value)
+  newTaskInput.value = ''
+}
 </script>
 
 <template>
   <div class="about">
-    <h1>{{ listName }}</h1>
+    <div class="mt-10 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <Icon
+          icon="material-symbols:arrow-back-rounded"
+          style="font-size: 2em"
+          class="cursor-pointer text-text hover:text-primary"
+          @click="router.push({ name: 'home' })"
+        />
+        <h1 class="mt-0">{{ listName }}</h1>
+      </div>
+      <Icon
+        icon="charm:menu-kebab"
+        style="font-size: 2em"
+        class="cursor-pointer text-text hover:text-primary"
+      />
+    </div>
     <div class="flex flex-col gap-4">
       <div
         v-for="task in tasks"
         :key="task.id"
         class="flex w-full rounded-xl bg-main p-4 duration-300 hover:bg-primaryhover"
-        @mouseover="hoveredTask = task.name"
+        @mouseover="hoveredTask = task.id"
         @mouseleave="hoveredTask = null"
       >
         <div class="flex grow gap-4">
@@ -57,7 +79,7 @@ const handleAdd = () => {
           </p>
         </div>
         <Icon
-          v-show="hoveredTask === task.name"
+          v-show="hoveredTask === task.id"
           icon="material-symbols:delete-forever-rounded"
           style="font-size: 2em"
           class="cursor-pointer text-info hover:text-text"
@@ -70,14 +92,15 @@ const handleAdd = () => {
       >
         <Icon icon="material-symbols:circle-outline" style="font-size: 2em" />
         <input
+          v-model="newTaskInput"
           placeholder="Aufgabe eingeben"
           class="cursor-pointer bg-transparent text-lg font-semibold outline-none placeholder:text-primary"
-          v-on:keyup.enter="store.addNewTask(listId)"
+          @keyup.enter="addTask"
           ref="newTask"
         />
         <Icon
-          icon="tdesign:enter"
-          @click="store.addNewTask(listId)"
+          icon="material-symbols:subdirectory-arrow-left-rounded"
+          @click="addTask"
           style="font-size: 2em"
           class="cursor-pointer"
         />
@@ -93,5 +116,3 @@ const handleAdd = () => {
     </div>
   </div>
 </template>
-
-<style scoped></style>
