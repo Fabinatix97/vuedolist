@@ -1,39 +1,60 @@
 # VueDoList
 
-This template should help get you started developing with Vue 3 in Vite.
+VueDoList is a minimalist To-Do app built with Vue.js and Vite. The focus is on providing a simple, user-friendly interface for managing to-do lists, shopping lists, and packing lists.
 
-## Recommended IDE Setup
+## Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- **Clean Interface**: A sleek and intuitive UI for organizing various lists.
+- **Minimalist Design**: A dark theme for a comfortable user experience.
+- **Easily Extensible**: Straightforward code structure for customization and feature expansion.
 
-## Type Support for `.vue` Imports in TS
+## Technologies Used
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+- **Frontend**: [Vue.js 3](https://vuejs.org/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
 
-## Customize configuration
+## Getting Started
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### Prerequisites
+- Node.js (version 16 or higher)
+- npm or another package manager like pnpm or yarn
 
-## Project Setup
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/username/VueDoList.git
+cd VueDoList
 
-```sh
+# Install dependencies
 npm install
 ```
 
-### Compile and Hot-Reload for Development
-
-```sh
+### Start Development Server
+```bash
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
+### Build for Production
+```bash
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
+### Run Linter
+```bash
 npm run lint
 ```
+
+## How to Use
+
+1. Start the development server using npm run dev.
+2. Open the app in your browser at http://localhost:5173.
+3. Add new to-do, shopping, or packing lists by clicking the + button.
+
+## Screenshots
+
+| Light Mode    | Dark Mode     |
+| ------------- | ------------- |
+| ![list-view-light](https://github.com/user-attachments/assets/ff7becf7-0d05-4983-81b7-a55617eb89fb)  | ![list-view-dark](https://github.com/user-attachments/assets/d4d8e8ac-21bd-43ef-b56e-1010784544dc)  |
+| ![task-view-light](https://github.com/user-attachments/assets/6b780e63-1d1f-4041-bc63-e9ce0691095f)  | ![task-view-dark](https://github.com/user-attachments/assets/6d90c7f2-8ae7-495f-97d5-3ab04c97158a)  |
+
+Thank you for checking out VueDoList! 🎉
