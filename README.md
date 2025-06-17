@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/Fabinatix97/VueDoList/main/public/logo.png" width="180" alt="VueDoList Logo">
+
 # VueDoList
 
 VueDoList is a minimalist To-Do app built with Vue.js and Vite. The focus is on providing a simple, user-friendly interface for managing to-do lists, shopping lists, and packing lists.
