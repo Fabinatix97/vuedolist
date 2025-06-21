@@ -105,7 +105,7 @@ onMounted(() => {
       >
         <div class="flex grow gap-4">
           <Icon
-            v-if="todo.status === TodoStatus.CLOSED"
+            v-if="todo.status === TodoStatus.DONE"
             icon="material-symbols:check-circle-rounded"
             style="font-size: 2em"
             @click="handleUpdateTodo(todo.id, { status: TodoStatus.OPEN })"
@@ -115,10 +115,10 @@ onMounted(() => {
             v-else
             icon="material-symbols:circle-outline"
             style="font-size: 2em"
-            @click="handleUpdateTodo(todo.id, { status: TodoStatus.CLOSED })"
+            @click="handleUpdateTodo(todo.id, { status: TodoStatus.DONE })"
             class="cursor-pointer"
           />
-          <p :class="[todo.status === TodoStatus.CLOSED ? 'text-info line-through' : '', 'font-semibold']">
+          <p :class="[todo.status === TodoStatus.DONE ? 'text-info line-through' : '', 'font-semibold']">
             {{ todo.title }}
           </p>
         </div>
