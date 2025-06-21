@@ -1,36 +1,80 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
-import { computed, ref, nextTick } from 'vue'
+import { nextTick, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { listStore } from '../stores/lists'
+import { createTodo, deleteTodo, fetchTodoList, updateTodo } from '@/api/VueDoApi'
+import type { TodoListDto } from '@/api/models/TodoListDto'
+import { TodoStatus } from '@/api/models/TodoStatus'
+import type { TodoPriority } from '@/api/models/TodoPriority'
 
-const store = listStore()
+const hoveredTask = ref<string | null>(null)
 const router = useRouter()
 const route = useRoute()
-const listId = parseInt(route.params.id as string)
-const list = computed(() => store.lists.find((l) => l.id === listId))
-const listName = list.value?.name
-const tasks = computed(() => list.value?.tasks || [])
-const hoveredTask = ref<string | null>(null)
+const todoListId = ref<string>(route.params.id as string);
 
-const newTask = ref<HTMLInputElement | null>(null)
-const newTaskInput = ref('') // Lokale Eingabe
+const todoList = ref<TodoListDto>();
 
-const handleAdd = () => {
-  store.shown = !store.shown
-  if (store.shown) {
-    nextTick(() => {
-      if (newTask.value) {
-        newTask.value.focus()
-      }
+const newTodo = ref<HTMLInputElement | null>(null)
+const newTodoTitle = ref('')
+
+const show = ref(false)
+
+function handleClick() {
+  show.value = true
+  nextTick(() => {
+    newTodo.value?.focus()
+  })
+}
+
+function handleCreateTodo() {
+  createTodo(todoListId.value, newTodoTitle.value)
+    .then(() => {
+      newTodoTitle.value = '';
+      show.value = false;
+      return fetchTodoList(todoListId.value)
     })
-  }
+    .then(result => {
+      todoList.value = result;
+    })
 }
 
-const addTask = () => {
-  store.addNewTask(listId, newTaskInput.value)
-  newTaskInput.value = ''
+function handleUpdateTodo(
+  todoId: string,
+  updates: {
+    title?: string,
+    description?: string,
+    status?: TodoStatus,
+    priority?: TodoPriority
+  }
+) {
+  updateTodo(todoListId.value, todoId, updates.title, updates.description, updates.status, updates.priority)
+    .then(() => {
+      return fetchTodoList(todoListId.value)
+    })
+    .then(result => {
+      todoList.value = result;
+    })
 }
+
+function handleDeleteTodo(
+  todoId: string
+) {
+  deleteTodo(todoListId.value, todoId)
+    .then(() => {
+      return fetchTodoList(todoListId.value)
+    })
+    .then(result => {
+      todoList.value = result;
+    })
+}
+
+onMounted(() => {
+  fetchTodoList(todoListId.value)
+    .then(result => {
+      todoList.value = result;
+    })
+})
+
 </script>
 
 <template>
@@ -43,7 +87,7 @@ const addTask = () => {
           class="cursor-pointer text-text hover:text-primary"
           @click="router.push({ name: 'home' })"
         />
-        <h1 class="mt-0">{{ listName }}</h1>
+        <h1 class="mt-0">{{ todoList?.title }}</h1>
       </div>
       <Icon
         icon="charm:menu-kebab"
@@ -53,54 +97,54 @@ const addTask = () => {
     </div>
     <div class="flex flex-col gap-4">
       <div
-        v-for="task in tasks"
-        :key="task.id"
+        v-for="todo in todoList?.todos"
+        :key="todo.id"
         class="flex w-full rounded-xl bg-main p-4 duration-300 hover:bg-primaryhover"
-        @mouseover="hoveredTask = task.id"
+        @mouseover="hoveredTask = todo.id"
         @mouseleave="hoveredTask = null"
       >
         <div class="flex grow gap-4">
           <Icon
-            v-if="task.done"
+            v-if="todo.status === TodoStatus.CLOSED"
             icon="material-symbols:check-circle-rounded"
             style="font-size: 2em"
-            @click="store.changeStatus(task)"
+            @click="handleUpdateTodo(todo.id, { status: TodoStatus.OPEN })"
             class="cursor-pointer text-info"
           />
           <Icon
             v-else
             icon="material-symbols:circle-outline"
             style="font-size: 2em"
-            @click="store.changeStatus(task)"
+            @click="handleUpdateTodo(todo.id, { status: TodoStatus.CLOSED })"
             class="cursor-pointer"
           />
-          <p :class="[task.done ? 'text-info line-through' : '', 'font-semibold']">
-            {{ task.name }}
+          <p :class="[todo.status === TodoStatus.CLOSED ? 'text-info line-through' : '', 'font-semibold']">
+            {{ todo.title }}
           </p>
         </div>
         <Icon
-          v-show="hoveredTask === task.id"
+          v-show="hoveredTask === todo.id"
           icon="material-symbols:delete-forever-rounded"
           style="font-size: 2em"
           class="cursor-pointer text-info hover:text-text"
-          @click="store.deleteTask(listId, task.id)"
+          @click="handleDeleteTodo(todo.id)"
         />
       </div>
       <div
-        v-if="store.shown"
+        v-if="show"
         class="flex gap-4 rounded-xl bg-primaryhover p-4 text-primary duration-300"
       >
         <Icon icon="material-symbols:circle-outline" style="font-size: 2em" />
         <input
-          v-model="newTaskInput"
+          ref="newTodo"
+          v-model="newTodoTitle"
           placeholder="Aufgabe eingeben"
           class="cursor-pointer bg-transparent text-lg font-semibold outline-none placeholder:text-primary"
-          @keyup.enter="addTask"
-          ref="newTask"
+          @keyup.enter="handleCreateTodo"
         />
         <Icon
           icon="material-symbols:subdirectory-arrow-left-rounded"
-          @click="addTask"
+          @click="handleCreateTodo"
           style="font-size: 2em"
           class="cursor-pointer"
         />
@@ -108,7 +152,7 @@ const addTask = () => {
       <div class="flex justify-end">
         <div
           class="flex gap-4 rounded-xl bg-primary p-4 text-white duration-300 hover:bg-primaryhover hover:text-text"
-          @click="handleAdd()"
+          @click="handleClick"
         >
           <Icon icon="material-symbols:add-2-rounded" style="font-size: 2em" />
         </div>
