@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root[data-theme='light'] {
+  --body: white;
+  --border: rgba(60, 60, 60, 0.12);
+  --info: #929ca7;
+  --main: #f1f1f1;
+  --menu: white;
+  --menuborder: #d9d9d9;
+  --primary: theme('colors.emerald.700');
+  --primaryhover: theme('colors.emerald.200');
+  --text: #35495e;
+}
+
+:root[data-theme='dark'] {
+  --body: #1f2d3c;
+  --border: rgba(84, 84, 84, 0.48);
+  --info: #9aa4af;
+  --main: #35495e;
+  --menu: #131b24;
+  --menuborder: #131b24;
+  --primary: theme('colors.emerald.500');
+  --primaryhover: theme('colors.emerald.900');
+  --text: white;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply mb-4 mt-8 font-bold;
+  }
+  h1 {
+    @apply mt-10 text-5xl;
+  }
+  h2 {
+    @apply text-4xl;
+  }
+  h3 {
+    @apply text-3xl;
+    color: var(--primary);
+  }
+  h4 {
+    @apply text-2xl;
+  }
+  p {
+    @apply text-lg;
+  }
+}
+
+#app {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-weight: normal;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--text);
+  background: var(--body);
+  transition:
+    color 0.5s,
+    background-color 0.5s;
+  line-height: 1.6;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    Cantarell,
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@media (min-width: 1024px) {
+  body {
+    place-items: center;
+  }
+}

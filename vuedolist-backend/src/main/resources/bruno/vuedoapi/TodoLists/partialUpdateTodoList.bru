@@ -1,0 +1,17 @@
+meta {
+  name: partialUpdateTodoList
+  type: http
+  seq: 5
+}
+
+patch {
+  url: http://localhost:8080/todo-lists/b547099d-f256-4e3d-9bc4-a9b7546b8ef1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "title": "Fruits"
+  }
+}

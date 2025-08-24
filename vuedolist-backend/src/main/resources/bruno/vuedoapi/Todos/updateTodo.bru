@@ -1,0 +1,21 @@
+meta {
+  name: updateTodo
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/todo-lists/34c31edd-3cdc-47c3-9aa2-250e9b3e60b4/todos/f1d8b7f3-4164-48b6-9a57-10a7bf494d54
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": "f1d8b7f3-4164-48b6-9a57-10a7bf494d54",
+    "title": "Green Apple",
+    "description": null,
+    "status": "DONE",
+    "priority": "MEDIUM"
+  }
+}
