@@ -3,8 +3,10 @@ import type { TodoListDto } from '@/api/models/TodoListDto'
 import { TodoPriority } from '@/api/models/TodoPriority'
 import { TodoStatus } from '@/api/models/TodoStatus'
 
+const API_BASE = import.meta.env.VITE_API_BASE || '/api';
+
 export function fetchTodoLists(): Promise<TodoListDto[]> {
-  const apiUrl = 'http://localhost:8080/todo-lists'
+  const apiUrl = `${API_BASE}/todo-lists`
 
   return fetch(apiUrl).then((response) => {
     return response.json()
@@ -12,7 +14,7 @@ export function fetchTodoLists(): Promise<TodoListDto[]> {
 }
 
 export function fetchTodoList(todoListId: string): Promise<TodoListDto> {
-  const apiUrl = 'http://localhost:8080/todo-lists/' + todoListId
+  const apiUrl = `${API_BASE}/todo-lists/${todoListId}`
 
   return fetch(apiUrl).then((response) => {
     return response.json()
@@ -20,7 +22,7 @@ export function fetchTodoList(todoListId: string): Promise<TodoListDto> {
 }
 
 export function createTodoList(title: string, description?: string): Promise<TodoListDto> {
-  const apiUrl = 'http://localhost:8080/todo-lists'
+  const apiUrl = `${API_BASE}/todo-lists`
 
   const requestBody = {
     title: title,
@@ -41,7 +43,7 @@ export function updateTodoList(
   title?: string,
   description?: string,
 ): Promise<TodoListDto> {
-  const apiUrl = 'http://localhost:8080/todo-lists/' + todoListId
+  const apiUrl = `${API_BASE}/todo-lists/${todoListId}`
 
   const requestBody = {
     title: title,
@@ -58,7 +60,7 @@ export function updateTodoList(
 }
 
 export function deleteTodoList(todoListId: string) {
-  const apiUrl = 'http://localhost:8080/todo-lists/' + todoListId
+  const apiUrl = `${API_BASE}/todo-lists/${todoListId}`
 
   return fetch(apiUrl, {
     method: 'DELETE',
@@ -66,7 +68,7 @@ export function deleteTodoList(todoListId: string) {
 }
 
 export function fetchTodos(todoListId: string): Promise<TodoDto[]> {
-  const apiUrl = 'http://localhost:8080/todo-lists/' + todoListId + '/todos'
+  const apiUrl = `${API_BASE}/todo-lists/${todoListId}/todos`
 
   return fetch(apiUrl).then((response) => {
     return response.json()
@@ -80,7 +82,7 @@ export function createTodo(
   status?: TodoStatus,
   priority?: TodoPriority,
 ): Promise<TodoDto> {
-  const apiUrl = 'http://localhost:8080/todo-lists/' + todoListId + '/todos'
+  const apiUrl = `${API_BASE}/todo-lists/${todoListId}/todos`
 
   const requestBody = {
     title: title,
@@ -106,7 +108,7 @@ export function updateTodo(
   status?: TodoStatus,
   priority?: TodoPriority,
 ): Promise<TodoDto> {
-  const apiUrl = 'http://localhost:8080/todo-lists/' + todoListId + '/todos/' + todoId
+  const apiUrl = `${API_BASE}/todo-lists/${todoListId}/todos/${todoId}`
 
   const requestBody = {
     id: todoId,
@@ -126,7 +128,7 @@ export function updateTodo(
 }
 
 export function deleteTodo(todoListId: string, todoId: string) {
-  const apiUrl = 'http://localhost:8080/todo-lists/' + todoListId + '/todos/' + todoId
+  const apiUrl = `${API_BASE}/todo-lists/${todoListId}/todos/${todoId}`
 
   return fetch(apiUrl, {
     method: 'DELETE',

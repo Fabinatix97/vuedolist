@@ -1,8 +1,8 @@
-<img src="https://raw.githubusercontent.com/Fabinatix97/vuedoapi/refs/heads/main/src/main/resources/logo.png" width="180" alt="VueDoAPI Logo">
+<img src="https://raw.githubusercontent.com/Fabinatix97/vuedolist/main/backend/src/main/resources/logo.png" width="180" alt="VueDoList Backend Logo">
 
-# VueDoAPI
+# VueDoList Backend
 
-VueDoAPI is the backend service for the [VueDoList](https://github.com/Fabinatix97/VueDoList) application. Built with Spring Boot and PostgreSQL, it provides a clean RESTful API for managing to-do lists, todos, and settings.
+This is the backend service for the [VueDoList](https://github.com/Fabinatix97/vuedolist) application. Built with Spring Boot and PostgreSQL, it provides a clean RESTful API for managing to-do lists, todos, and settings.
 
 ## Features
 
