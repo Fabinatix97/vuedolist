@@ -3,7 +3,7 @@ spring:
     name: vuedoapi
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://db:5432/${DB_NAME}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
@@ -12,3 +12,18 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+  health:
+    db:
+      enabled: true
+    diskspace:
+      enabled: true
