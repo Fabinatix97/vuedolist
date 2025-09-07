@@ -1,4 +1,4 @@
-package com.fabinatix.vuedoapi.services;
+package com.fabinatix.vuedoapi.service;
 
 import java.util.List;
 import java.util.Optional;

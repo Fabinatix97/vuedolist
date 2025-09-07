@@ -1,11 +1,11 @@
-package com.fabinatix.vuedoapi.mappers.impl;
+package com.fabinatix.vuedoapi.mapper.impl;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 import com.fabinatix.vuedoapi.domain.dto.TodoListDto;
 import com.fabinatix.vuedoapi.domain.entities.TodoList;
-import com.fabinatix.vuedoapi.mappers.Mapper;
+import com.fabinatix.vuedoapi.mapper.Mapper;
 
 @Component
 public class TodoListMapperImpl implements Mapper<TodoList, TodoListDto> {

@@ -1,4 +1,4 @@
-package com.fabinatix.vuedoapi.repositories;
+package com.fabinatix.vuedoapi.repository;
 
 import java.util.List;
 import java.util.Optional;

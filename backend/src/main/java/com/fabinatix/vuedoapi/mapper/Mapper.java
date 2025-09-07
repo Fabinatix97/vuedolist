@@ -1,4 +1,4 @@
-package com.fabinatix.vuedoapi.mappers;
+package com.fabinatix.vuedoapi.mapper;
 
 public interface Mapper<A, B> {
 

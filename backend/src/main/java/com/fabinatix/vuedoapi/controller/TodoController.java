@@ -4,8 +4,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fabinatix.vuedoapi.domain.dto.TodoDto;
 import com.fabinatix.vuedoapi.domain.entities.Todo;
-import com.fabinatix.vuedoapi.mappers.Mapper;
-import com.fabinatix.vuedoapi.services.TodoService;
+import com.fabinatix.vuedoapi.mapper.Mapper;
+import com.fabinatix.vuedoapi.service.TodoService;
 
 import java.util.List;
 import java.util.Optional;

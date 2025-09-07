@@ -13,6 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.fabinatix.vuedoapi.TestDataUtil;
 import com.fabinatix.vuedoapi.domain.entities.Todo;
 import com.fabinatix.vuedoapi.domain.entities.TodoList;
+import com.fabinatix.vuedoapi.repository.TodoListRepository;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)

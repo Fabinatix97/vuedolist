@@ -1,4 +1,4 @@
-package com.fabinatix.vuedoapi.services.impl;
+package com.fabinatix.vuedoapi.service.impl;
 
 import java.util.List;
 import java.util.Objects;
@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fabinatix.vuedoapi.domain.entities.TodoList;
-import com.fabinatix.vuedoapi.repositories.TodoListRepository;
-import com.fabinatix.vuedoapi.services.TodoListService;
+import com.fabinatix.vuedoapi.repository.TodoListRepository;
+import com.fabinatix.vuedoapi.service.TodoListService;
 
 @Service
 public class TodoListServiceImpl implements TodoListService {

@@ -1,4 +1,4 @@
-package com.fabinatix.vuedoapi.services.impl;
+package com.fabinatix.vuedoapi.service.impl;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,9 +12,9 @@ import com.fabinatix.vuedoapi.domain.entities.Todo;
 import com.fabinatix.vuedoapi.domain.entities.TodoList;
 import com.fabinatix.vuedoapi.domain.entities.TodoPriority;
 import com.fabinatix.vuedoapi.domain.entities.TodoStatus;
-import com.fabinatix.vuedoapi.repositories.TodoListRepository;
-import com.fabinatix.vuedoapi.repositories.TodoRepository;
-import com.fabinatix.vuedoapi.services.TodoService;
+import com.fabinatix.vuedoapi.repository.TodoListRepository;
+import com.fabinatix.vuedoapi.repository.TodoRepository;
+import com.fabinatix.vuedoapi.service.TodoService;
 
 @Service
 public class TodoServiceImpl implements TodoService {
