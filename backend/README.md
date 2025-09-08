@@ -6,11 +6,11 @@ This is the backend service for the [VueDoList](https://github.com/Fabinatix97/v
 
 ## Features
 
-- ✅ **RESTful API** for CRUD operations on lists and todos
-- 🔒 **Environment-based configuration** for secure local dev & deployment
-- 🐘 **PostgreSQL integration** via Spring Data JPA
-- 🔄 **CORS setup** for frontend-backend communication
-- ⚙️ **Dockerized DB support** for easy local setup
+- **RESTful API** for CRUD operations on lists and todos
+- **Environment-based configuration** for secure local dev & deployment
+- **PostgreSQL integration** via Spring Data JPA
+- **CORS setup** for frontend-backend communication
+- **Dockerized DB support** for easy local setup
 
 ## Technologies Used
 

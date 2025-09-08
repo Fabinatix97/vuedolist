@@ -2,7 +2,7 @@
 
 # VueDoList Frontend
 
-VueDoList is a minimalist To-Do app built with Vue.js and Vite. The focus is on providing a simple, user-friendly interface for managing to-do lists, shopping lists, and packing lists.
+This is the frontend service for the [VueDoList](https://github.com/Fabinatix97/vuedolist) application. The focus is on providing a simple, user-friendly interface for managing to-do lists, shopping lists, and packing lists.
 
 ## Features
 
@@ -23,26 +23,16 @@ VueDoList is a minimalist To-Do app built with Vue.js and Vite. The focus is on 
 
 ### Installation
 ```bash
-# Clone the repository
-git clone https://github.com/username/VueDoList.git
-cd VueDoList
-
 # Install dependencies
 npm install
-```
 
-### Start Development Server
-```bash
+# Run the development server
 npm run dev
-```
 
-### Build for Production
-```bash
+# Build for production
 npm run build
-```
 
-### Run Linter
-```bash
+# Run the linter
 npm run lint
 ```
 
@@ -58,5 +48,3 @@ npm run lint
 | ------------- | ------------- |
 | ![list-view-light](https://github.com/user-attachments/assets/ff7becf7-0d05-4983-81b7-a55617eb89fb)  | ![list-view-dark](https://github.com/user-attachments/assets/d4d8e8ac-21bd-43ef-b56e-1010784544dc)  |
 | ![task-view-light](https://github.com/user-attachments/assets/6b780e63-1d1f-4041-bc63-e9ce0691095f)  | ![task-view-dark](https://github.com/user-attachments/assets/6d90c7f2-8ae7-495f-97d5-3ab04c97158a)  |
-
-Thank you for checking out VueDoList! 🎉
