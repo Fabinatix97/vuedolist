@@ -1,0 +1,21 @@
+name: Build Docker images
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  backend:
+    uses: ./.github/workflows/build-image.yml
+    with:
+      image-name: backend
+      context: backend
+
+  frontend:
+    uses: ./.github/workflows/build-image.yml
+    with:
+      image-name: frontend
+      context: frontend
+
