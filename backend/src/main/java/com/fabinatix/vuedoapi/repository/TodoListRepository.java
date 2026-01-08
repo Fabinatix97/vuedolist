@@ -10,6 +10,6 @@ import com.fabinatix.vuedoapi.domain.entities.TodoList;
 @Repository
 public interface TodoListRepository extends CrudRepository<TodoList, UUID> {
 
-    // Additional methods specific to TodoList can be added here if needed
+    void deleteByCreatedAtBefore(java.time.Instant dateTime);
 
 }

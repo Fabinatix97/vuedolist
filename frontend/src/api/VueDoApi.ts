@@ -25,6 +25,7 @@ export function createTodoList(title: string, description?: string): Promise<Tod
   const apiUrl = `${API_BASE}/todo-lists`
 
   const requestBody = {
+    createdAt: new Date().toISOString(),
     title: title,
     description: description,
   }

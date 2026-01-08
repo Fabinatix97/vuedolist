@@ -28,6 +28,9 @@ public class TodoListServiceImpl implements TodoListService {
     if(null != todoList.getId()) {
       throw new IllegalArgumentException("Todo list already has an ID!");
     }
+    if (todoList.getCreatedAt() == null || todoList.getCreatedAt().toString().isBlank()) {
+      throw new IllegalArgumentException("Todo list must have a creation date!");
+    }
     if (todoList.getTitle() == null || todoList.getTitle().isBlank()) {
       throw new IllegalArgumentException("Todo list title must be present!");
     }
@@ -77,9 +80,16 @@ public class TodoListServiceImpl implements TodoListService {
     return todoListRepository.save(exisitingTodoList);
   }
 
+  @Transactional
   @Override
   public void delete(UUID todoListId) {
     todoListRepository.deleteById(todoListId);
+  }
+
+  @Transactional
+  @Override
+  public void deleteExpired() {
+    todoListRepository.deleteByCreatedAtBefore(java.time.Instant.now().minus(java.time.Duration.ofMinutes(2)));
   }
 
 }

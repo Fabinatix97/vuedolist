@@ -1,4 +1,4 @@
-package com.fabinatix.vuedoapi;
+package com.fabinatix.vuedoapi.util;
 
 import java.util.List;
 
@@ -41,6 +41,7 @@ public final class TestDataUtil {
 
   public static TodoList createTestTodoListA(Todo... todos) {
     return TodoList.builder()
+        .createdAt(java.time.Instant.now())
         .title("Todo List A")
         .description("Description for Todo List A")
         .todos(todos != null ? List.of(todos) : null)

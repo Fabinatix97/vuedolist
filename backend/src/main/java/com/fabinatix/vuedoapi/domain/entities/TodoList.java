@@ -30,6 +30,9 @@ public class TodoList {
   @Column(name = "id", updatable=false, nullable=false)
   private UUID id;
 
+  @Column(name = "created_at", nullable = false, updatable = false)
+  private java.time.Instant createdAt;
+
   @Column(name = "title", nullable = false)
   private String title;
 

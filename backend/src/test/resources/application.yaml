@@ -8,3 +8,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+vuedoapi:
+  expirationSeconds: 120

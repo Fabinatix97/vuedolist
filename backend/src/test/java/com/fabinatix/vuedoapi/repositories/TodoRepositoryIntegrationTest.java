@@ -8,9 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.fabinatix.vuedoapi.TestDataUtil; 
 import com.fabinatix.vuedoapi.domain.entities.Todo;
 import com.fabinatix.vuedoapi.repository.TodoRepository;
+import com.fabinatix.vuedoapi.util.TestDataUtil;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)

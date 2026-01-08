@@ -1,5 +1,6 @@
 package com.fabinatix.vuedoapi.domain.dto;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,6 +16,8 @@ import lombok.NoArgsConstructor;
 public class TodoListDto {
   
   private UUID id;
+
+  private Instant createdAt;
 
   private String title;
 

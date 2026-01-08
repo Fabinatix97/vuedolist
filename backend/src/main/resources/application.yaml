@@ -27,3 +27,6 @@ management:
       enabled: true
     diskspace:
       enabled: true
+
+vuedoapi:
+  expirationSeconds: 120
