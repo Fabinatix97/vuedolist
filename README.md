@@ -76,7 +76,7 @@ For detailed setup and usage instructions, please refer to the individual README
 
 | Light Mode    | Dark Mode     |
 | ------------- | ------------- |
-| ![list-view-light](https://github.com/user-attachments/assets/ff7becf7-0d05-4983-81b7-a55617eb89fb)  | ![list-view-dark](https://github.com/user-attachments/assets/d4d8e8ac-21bd-43ef-b56e-1010784544dc)  |
-| ![task-view-light](https://github.com/user-attachments/assets/6b780e63-1d1f-4041-bc63-e9ce0691095f)  | ![task-view-dark](https://github.com/user-attachments/assets/6d90c7f2-8ae7-495f-97d5-3ab04c97158a)  |
+| ![list-view-light](https://raw.githubusercontent.com/Fabinatix97/vuedolist/main/frontend/public/list-view-light.jpg)  | ![list-view-dark](https://raw.githubusercontent.com/Fabinatix97/vuedolist/main/frontend/public/list-view-dark.jpg)  |
+| ![task-view-light](https://raw.githubusercontent.com/Fabinatix97/vuedolist/main/frontend/public/task-view-light.jpg)  | ![task-view-dark](https://raw.githubusercontent.com/Fabinatix97/vuedolist/main/frontend/public/task-view-dark.jpg)  |
 
 Thank you for checking out VueDoList! 🎉
